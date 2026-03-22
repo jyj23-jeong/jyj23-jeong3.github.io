@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>This Week in AI – New Products & Services</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🤖</span>
+        <span class="logo-text">This Week in AI</span>
+      </div>
+      <p class="header-subtitle">Freshly launched AI products &amp; services — curated weekly</p>
+      <p class="week-label" id="weekLabel"></p>
+    </div>
+  </header>
+
+  <!-- ── Filter Bar ── -->
+  <nav class="filter-bar" aria-label="Category filter">
+    <div class="filter-inner">
+      <span class="filter-label">Filter by category:</span>
+      <div class="filter-buttons" id="filterButtons">
+        <button class="filter-btn active" data-category="all">All</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Main Content ── -->
+  <main class="main-content">
+    <div class="product-grid" id="productGrid"></div>
+    <p class="no-results hidden" id="noResults">No products found for this category.</p>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <p>Updated weekly &bull; Focused on launches, not headlines</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
