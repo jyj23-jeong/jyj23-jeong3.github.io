@@ -1,0 +1,43 @@
+title: "AI Trend Daily"
+description: "Daily summaries of the latest AI news and research trends, automatically curated and summarized."
+baseurl: ""
+url: "https://jyj23-jeong.github.io"
+
+theme: minima
+
+permalink: /:year/:month/:day/:title/
+
+# Pagination
+paginate: 10
+paginate_path: "/page/:num/"
+
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from build
+exclude:
+  - scripts/
+  - requirements.txt
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .github/
+
+# Collections
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "AI Trend Bot"
