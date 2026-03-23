@@ -1,46 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>This Week in AI – New Products & Services</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+---
+layout: default
+title: "AI Trend Daily"
+---
 
-  <!-- ── Header ── -->
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">🤖</span>
-        <span class="logo-text">This Week in AI</span>
-      </div>
-      <p class="header-subtitle">Freshly launched AI products &amp; services — curated weekly</p>
-      <p class="week-label" id="weekLabel"></p>
+<div class="page-hero">
+  <h1>🤖 AI Trend Daily</h1>
+  <p>Latest AI news automatically scraped and summarized every day</p>
+</div>
+
+{% if paginator.posts.size > 0 %}
+  {% assign posts_to_show = paginator.posts %}
+{% elsif site.posts.size > 0 %}
+  {% assign posts_to_show = site.posts %}
+{% endif %}
+
+{% if posts_to_show.size > 0 %}
+<ul class="post-list">
+  {% for post in posts_to_show %}
+  <li class="post-list-item">
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <div class="post-meta">
+      <span>📅 {{ post.date | date: "%B %-d, %Y" }}</span>
+      {% if post.source_count %}
+      <span>📰 {{ post.source_count }} articles</span>
+      {% endif %}
+      {% if post.categories %}
+        {% for cat in post.categories %}
+        <span class="source-tag">{{ cat }}</span>
+        {% endfor %}
+      {% endif %}
     </div>
-  </header>
+    {% if post.excerpt %}
+    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
+    {% endif %}
+    <a href="{{ post.url | relative_url }}" class="read-more">Read full digest →</a>
+  </li>
+  {% endfor %}
+</ul>
 
-  <!-- ── Filter Bar ── -->
-  <nav class="filter-bar" aria-label="Category filter">
-    <div class="filter-inner">
-      <span class="filter-label">Filter by category:</span>
-      <div class="filter-buttons" id="filterButtons">
-        <button class="filter-btn active" data-category="all">All</button>
-      </div>
-    </div>
-  </nav>
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+  <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Newer</a>
+  {% endif %}
+  <span class="current">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+  <a href="{{ paginator.next_page_path | relative_url }}">Older &raquo;</a>
+  {% endif %}
+</div>
+{% endif %}
 
-  <!-- ── Main Content ── -->
-  <main class="main-content">
-    <div class="product-grid" id="productGrid"></div>
-    <p class="no-results hidden" id="noResults">No products found for this category.</p>
-  </main>
-
-  <!-- ── Footer ── -->
-  <footer class="site-footer">
-    <p>Updated weekly &bull; Focused on launches, not headlines</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+{% else %}
+<div class="no-posts">
+  <div class="emoji">📡</div>
+  <p>No news posts yet. The daily scraper will publish the first digest soon!</p>
+  <p style="margin-top:0.5rem; font-size:0.85rem;">Subscribe via <a href="{{ '/feed.xml' | relative_url }}">RSS</a> to get notified.</p>
+</div>
+{% endif %}
