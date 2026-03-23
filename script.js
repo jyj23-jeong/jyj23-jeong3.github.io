@@ -348,4 +348,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Build filter buttons
   buildFilterButtons();
+
+  // Nav active-link highlight on scroll
+  initNavHighlight();
 });
+
+// ── Nav Highlight on Scroll ───────────────────────────────────────────────────
+
+function initNavHighlight() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-links a");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => link.classList.remove("active"));
+          const match = document.querySelector(
+            `.nav-links a[href="#${entry.target.id}"]`
+          );
+          if (match) match.classList.add("active");
+        }
+      });
+    },
+    { rootMargin: "-40% 0px -60% 0px" }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+}
